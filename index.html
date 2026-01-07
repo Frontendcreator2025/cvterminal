@@ -1,646 +1,488 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Terminal - Backend Developer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RE:BAROQUE - Galería Underground</title>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Special+Elite&family=Permanent+Marker&family=Courier+Prime&family=Bebas+Neue&display=swap');
         
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background: #0d1117;
-            color: #c9d1d9;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        .terminal-window {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-        }
-        
-        .terminal-header {
-            background: #21262d;
-            border-bottom: 1px solid #30363d;
-            padding: 12px 16px;
-            border-radius: 8px 8px 0 0;
-        }
-        
-        .terminal-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-        }
-        
-        .dot-red { background: #ff5f56; }
-        .dot-yellow { background: #ffbd2e; }
-        .dot-green { background: #27ca3f; }
-        
-        .typing-animation {
-            border-right: 2px solid #58a6ff;
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 50% { border-color: #58a6ff; }
-            51%, 100% { border-color: transparent; }
-        }
-        
-        .command-line {
-            color: #58a6ff;
-        }
-        
-        .output-text {
-            color: #c9d1d9;
-            line-height: 1.6;
-        }
-        
-        .highlight-green { color: #7ee787; }
-        .highlight-blue { color: #58a6ff; }
-        .highlight-purple { color: #d2a8ff; }
-        .highlight-orange { color: #ffa657; }
-        .highlight-red { color: #ff7b72; }
-        
-        .section-header {
-            color: #f0883e;
-            font-weight: 600;
-            border-bottom: 1px solid #30363d;
-            padding-bottom: 4px;
-            margin-bottom: 12px;
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease-in-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .hover-glow:hover {
-            box-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
-            transition: box-shadow 0.3s ease;
-        }
-        
-        .skill-bar {
-            background: #21262d;
-            height: 4px;
-            border-radius: 2px;
-            overflow: hidden;
-            margin-top: 4px;
-        }
-        
-        .skill-progress {
-            background: linear-gradient(90deg, #58a6ff, #7ee787);
+
+        html, body {
             height: 100%;
-            border-radius: 2px;
-            animation: loadSkill 2s ease-in-out;
+            width: 100%;
         }
-        
-        @keyframes loadSkill {
-            from { width: 0%; }
+
+        body {
+            background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+            font-family: 'Courier Prime', monospace;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, transparent 20%, rgba(255,255,255,0.02) 21%, rgba(255,255,255,0.02) 34%, transparent 35%, transparent),
+                linear-gradient(0deg, rgba(255,255,255,0.01) 50%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .gallery-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #1a1514;
+            background-image: 
+                radial-gradient(circle at 30% 20%, rgba(139,0,0,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 70% 80%, rgba(101,0,0,0.15) 1px, transparent 1px),
+                linear-gradient(45deg, rgba(139,0,0,0.05) 25%, transparent 25%);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 40px rgba(139,0,0,0.6);
+            border: 8px solid #8b0000;
+            width: 100%;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8b0000, #000000);
+            background-image: 
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.05) 2px, rgba(255,255,255,0.05) 4px);
+            padding: 40px 25px;
+            text-align: center;
+            position: relative;
+            border: 6px solid #000;
+            border-bottom: 6px solid #8b0000;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            background: repeating-linear-gradient(
+                45deg,
+                #000,
+                #000 3px,
+                #8b0000 3px,
+                #8b0000 6px
+            );
+            z-index: -1;
+        }
+
+        .main-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5rem;
+            color: #f0f0f0;
+            text-shadow: 3px 3px 0px #8b0000, 6px 6px 0px #000, 9px 9px 0px #8b0000;
+            letter-spacing: 12px;
+            margin-bottom: 15px;
+            filter: contrast(1.3);
+        }
+
+        .subtitle {
+            font-family: 'Courier Prime', monospace;
+            font-size: 1.1rem;
+            color: #ddd;
+            text-shadow: 2px 2px 0px #8b0000;
+            letter-spacing: 3px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .section {
+            margin: 30px 20px;
+            padding: 25px;
+            background: #2a2220;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(139,0,0,0.08) 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, rgba(101,0,0,0.12) 2px, transparent 2px),
+                linear-gradient(180deg, rgba(139,0,0,0.03) 0%, transparent 100%);
+            border: 4px solid #8b0000;
+            position: relative;
+            box-shadow: 4px 4px 0px #000, 8px 8px 0px rgba(139,0,0,0.5);
+        }
+
+        .section:nth-child(even) {
+            background: #252020;
+            background-image: 
+                radial-gradient(circle at 40% 60%, rgba(139,0,0,0.1) 1px, transparent 1px),
+                linear-gradient(45deg, rgba(101,0,0,0.05) 25%, transparent 25%);
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.8rem;
+            color: #ff4444;
+            text-shadow: 2px 2px 0px #000, 4px 4px 0px #8b0000;
+            margin-bottom: 20px;
+            display: inline-block;
+            filter: contrast(1.3);
+            letter-spacing: 4px;
+        }
+
+        .curatorial-text {
+            font-family: 'Courier Prime', monospace;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #e0e0e0;
+            margin: 15px 0;
+            text-align: justify;
+            text-shadow: 1px 1px 0px rgba(139,0,0,0.3);
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-left: 4px solid #8b0000;
+        }
+
+        .artwork-frame {
+            display: inline-block;
+            margin: 15px;
+            padding: 15px;
+            background: #0a0a0a;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139,0,0,0.15) 1px, transparent 1px),
+                radial-gradient(circle at 90% 80%, rgba(101,0,0,0.1) 1px, transparent 1px);
+            border: 4px solid #8b0000;
+            box-shadow: 3px 3px 0px #000, 6px 6px 0px rgba(139,0,0,0.4);
+            position: relative;
+            color: #e0e0e0;
+            clip-path: polygon(0% 0%, 98% 0%, 100% 3%, 100% 97%, 98% 100%, 2% 100%, 0% 97%, 0% 3%);
+            min-width: 200px;
+        }
+
+        .artwork-frame::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle, #8b0000 30%, #5a0000 70%);
+            border: 2px solid #000;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3), inset -1px -1px 2px rgba(0,0,0,0.5);
+        }
+
+        .artwork-frame::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            width: 7px;
+            height: 7px;
+            background: #000;
+            border-radius: 50%;
+            transform: translateX(-50%);
+        }
+
+        .artwork-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            color: #ff4444;
+            text-shadow: 2px 2px 0px #000;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .artwork-subtitle {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.9rem;
+            color: #999;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .artwork-desc {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #ccc;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #8b0000;
+            background-image: linear-gradient(45deg, #8b0000 25%, #5a0000 25%, #5a0000 50%, #8b0000 50%);
+            border: 2px solid #000;
+            border-radius: 20px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.75rem;
+            color: #f0f0f0;
+            margin: 4px;
+            box-shadow: 1px 1px 0px #000, 3px 3px 0px rgba(0,0,0,0.3);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .concept-box {
+            border: 3px dashed #8b0000;
+            padding: 20px;
+            margin: 20px 0;
+            background: rgba(139,0,0,0.1);
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,0,0,0.05) 2px, transparent 2px);
+            position: relative;
+            box-shadow: 2px 2px 0px rgba(139,0,0,0.3);
+        }
+
+        .concept-box::before {
+            content: "⚡";
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            font-size: 1.8rem;
+            background: #8b0000;
+            padding: 6px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            filter: drop-shadow(2px 2px 0px #000);
+        }
+
+        .glitch-text {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            color: #ff4444;
+            text-shadow: 2px 2px 0px #000;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .punk-button {
+            background: #8b0000;
+            color: #f0f0f0;
+            border: 3px solid #000;
+            padding: 12px 24px;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin: 10px;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 2px 2px 0px #000, 4px 4px 0px rgba(0,0,0,0.5);
+            position: relative;
+            letter-spacing: 2px;
+        }
+
+        .punk-button::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 10px;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #c0c0c0 30%, #808080 70%);
+            border: 1px solid #000;
+            border-radius: 50%;
+            box-shadow: inset 1px 1px 1px rgba(255,255,255,0.5);
+        }
+
+        .punk-button::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: 10px;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #c0c0c0 30%, #808080 70%);
+            border: 1px solid #000;
+            border-radius: 50%;
+            box-shadow: inset 1px 1px 1px rgba(255,255,255,0.5);
+        }
+
+        .divider {
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                #8b0000,
+                #8b0000 10px,
+                #000 10px,
+                #000 20px
+            );
+            margin: 30px 0;
+            box-shadow: 0 2px 0px #000;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+                letter-spacing: 6px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-container {
+                margin: 10px;
+            }
         }
     </style>
-</head>
-<body class="min-h-screen p-4 md:p-8">
-    <div class="max-w-6xl mx-auto">
-        <!-- Main Terminal Window -->
-        <div class="terminal-window fade-in hover-glow">
-            <div class="terminal-header">
-                <span class="terminal-dot dot-red"></span>
-                <span class="terminal-dot dot-yellow"></span>
-                <span class="terminal-dot dot-green"></span>
-                <span class="text-sm text-gray-400 ml-4">terminal@cv:~$</span>
-            </div>
-            
-            <div class="p-6 md:p-8">
-                <!-- Header Section -->
-                <div class="mb-8">
-                    <div class="command-line mb-2">$ whoami</div>
-                    <div class="output-text mb-4">
-                        <div class="text-2xl md:text-3xl font-bold highlight-green mb-2">Backend Developer | Comunicación Estratégica | Diseño Digital</div>
-                        <div class="text-sm md:text-base">
-                            <span class="highlight-blue">📍</span> Ciudad de México · 
-                            <span class="highlight-blue">✉️</span> <a href="mailto:zukuntwellefanzine@gmail.com" class="highlight-orange hover:underline">zukuntwellefanzine@gmail.com</a> · 
-                            <span class="highlight-blue">📞</span> <span class="highlight-purple">+52 5610677516</span>
-                        </div>
-                        <div class="mt-2">
-                            <span class="highlight-blue">🔗</span> <a href="https://github.com/zukunftwellefanzine" class="highlight-orange hover:underline" target="_blank">github.com/zukunftwellefanzine</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Photo Section -->
-                <div class="mb-8">
-                    <div class="command-line mb-2">$ display profile_picture.jpg</div>
-                    <div class="output-text">
-                        <div class="section-header">📸 FOTO DE PERFIL</div>
-                        <div class="flex flex-col md:flex-row items-center gap-6">
-                            <div class="relative">
-                                <div class="w-48 h-48 bg-gray-900 border-2 border-dashed border-gray-600 rounded-lg flex items-center justify-center overflow-hidden hover:border-blue-500 transition-colors">
-                                    <div id="photoContainer" class="w-full h-full flex items-center justify-center">
-                                        <div class="text-center">
-                                            <div class="text-4xl mb-2">👨‍💻</div>
-                                            <div class="text-sm text-gray-400">Profile Picture</div>
-                                            <div class="text-xs text-gray-500 mt-1">Click to upload</div>
-                                        </div>
-                                    </div>
-                                    <img id="profileImage" class="w-full h-full object-cover hidden" alt="Profile Picture">
-                                </div>
-                                <input type="file" id="photoInput" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                            </div>
-                            <div class="flex-1">
-                                <div class="p-4 bg-gray-900 rounded border-l-4 border-green-500">
-                                    <div class="text-sm space-y-2">
-                                        <div class="highlight-green">📁 Formatos soportados:</div>
-                                        <div class="text-xs text-gray-400">JPG, PNG, GIF, WebP</div>
-                                        <div class="highlight-blue mt-3">💡 Tip:</div>
-                                        <div class="text-xs text-gray-400">Usa una imagen cuadrada para mejor resultado</div>
-                                        <div class="highlight-purple mt-3">🎯 Recomendación:</div>
-                                        <div class="text-xs text-gray-400">Foto profesional o avatar que represente tu estilo</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Professional Summary -->
-                <div class="mb-8">
-                    <div class="command-line mb-2">$ cat profile.md</div>
-                    <div class="output-text">
-                        <div class="section-header">🔹 RESUMEN PROFESIONAL</div>
-                        <p>Desarrolladora Full Stack con más de <span class="highlight-green">10 años de experiencia</span> en medios, comunicación organizacional y arte digital. He trabajado en empresas privadas, gobiernos y organizaciones sociales, integrando <span class="highlight-blue">desarrollo backend y frontend</span> con diseño estratégico.</p>
-                        <p class="mt-3">Manejo tecnologías como <span class="highlight-purple">Python, Java, SQL, REST APIs, React, Supabase</span> y <span class="highlight-orange">Figma</span>. Mi enfoque es crear soluciones digitales funcionales y con identidad, priorizando <span class="highlight-green">accesibilidad, diversidad y buenas prácticas</span>.</p>
-                    </div>
-                </div>
-
-                <!-- Experience Section -->
-                <div class="mb-8">
-                    <div class="command-line mb-2">$ ls -la experience/</div>
-                    <div class="output-text">
-                        <div class="section-header">🟦 EXPERIENCIA LABORAL</div>
-                        
-                        <div class="mb-6 p-4 bg-gray-900 rounded border-l-4 border-green-500">
-                            <div class="highlight-green font-semibold">Omicron Transformación Digital</div>
-                            <div class="highlight-blue text-sm">Project Manager / Desarrolladora – 2024 - Actualidad</div>
-                            <ul class="mt-2 text-sm space-y-1">
-                                <li>• Coordinación de equipos multidisciplinarios para el diseño y entrega de plataformas web</li>
-                                <li>• Supervisión técnica de herramientas educativas y de inclusión digital</li>
-                            </ul>
-                        </div>
-
-                        <div class="mb-6 p-4 bg-gray-900 rounded border-l-4 border-blue-500">
-                            <div class="highlight-green font-semibold">Cave Electromecánica SA de CV</div>
-                            <div class="highlight-blue text-sm">Comunicación Organizacional – 2022 - 2024</div>
-                            <ul class="mt-2 text-sm space-y-1">
-                                <li>• Estrategia de comunicación interna/externa y diseño de identidad visual</li>
-                                <li>• Gestión de contenidos digitales y materiales corporativos</li>
-                            </ul>
-                        </div>
-
-                        <div class="mb-6 p-4 bg-gray-900 rounded border-l-4 border-purple-500">
-                            <div class="highlight-green font-semibold">BA Electromecánicos SA de CV</div>
-                            <div class="highlight-blue text-sm">Comunicación Organizacional – 2015 - 2022</div>
-                            <ul class="mt-2 text-sm space-y-1">
-                                <li>• Implementación de medios internos y cultura organizacional</li>
-                                <li>• Campañas informativas y editoriales digitales</li>
-                            </ul>
-                        </div>
-
-                        <div class="mb-6 p-4 bg-gray-900 rounded border-l-4 border-orange-500">
-                            <div class="highlight-green font-semibold">Alcaldía Álvaro Obregón – Desarrollo Social</div>
-                            <div class="highlight-blue text-sm">Atención Ciudadana – 2018 - 2021</div>
-                            <ul class="mt-2 text-sm space-y-1">
-                                <li>• Apoyo directo a población en situación de vulnerabilidad</li>
-                                <li>• Gestión de programas sociales y campañas institucionales</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Education Section -->
-                <div class="mb-8">
-                    <div class="command-line mb-2">$ cat education.json</div>
-                    <div class="output-text">
-                        <div class="section-header">🟦 EDUCACIÓN FORMAL</div>
-                        
-                        <div class="space-y-4">
-                            <div class="p-3 bg-gray-900 rounded">
-                                <div class="highlight-purple font-semibold">Maestría en Comunicación e Identidad Corporativa</div>
-                                <div class="text-sm highlight-blue">Universidad Internacional de La Rioja | 2020 - 2021</div>
-                            </div>
-                            
-                            <div class="p-3 bg-gray-900 rounded">
-                                <div class="highlight-purple font-semibold">Maestría en Diseño y Creatividad Digital</div>
-                                <div class="text-sm highlight-blue">Centro Universitario de la Comunicación | 2016 - 2017</div>
-                            </div>
-                            
-                            <div class="p-3 bg-gray-900 rounded">
-                                <div class="highlight-purple font-semibold">Ingeniería en Software</div>
-                                <div class="text-sm highlight-blue">Universidad de la Ciudad de México | 2016 - 2021</div>
-                            </div>
-                            
-                            <div class="p-3 bg-gray-900 rounded">
-                                <div class="highlight-purple font-semibold">Licenciatura en Ciencias de la Comunicación</div>
-                                <div class="text-sm highlight-blue">Universidad del Valle de México | 2006 - 2009</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Technical Skills -->
-                <div class="mb-8">
-                    <div class="command-line mb-2">$ ./skills --list</div>
-                    <div class="output-text">
-                        <div class="section-header">🟣 HABILIDADES TÉCNICAS</div>
-                        
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <div class="mb-4">
-                                    <div class="highlight-green font-semibold mb-2">Backend & Databases</div>
-                                    <div class="space-y-2">
-                                        <div>
-                                            <span class="highlight-blue">Python</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
-                                        </div>
-                                        <div>
-                                            <span class="highlight-blue">Java</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                                        </div>
-                                        <div>
-                                            <span class="highlight-blue">SQL / PostgreSQL</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
-                                        </div>
-                                        <div>
-                                            <span class="highlight-blue">REST APIs</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <div class="highlight-green font-semibold mb-2">Frontend & Frameworks</div>
-                                    <div class="space-y-2">
-                                        <div>
-                                            <span class="highlight-purple">React</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                                        </div>
-                                        <div>
-                                            <span class="highlight-purple">JavaScript</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
-                                        </div>
-                                        <div>
-                                            <span class="highlight-purple">HTML/CSS</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <div class="mb-4">
-                                    <div class="highlight-green font-semibold mb-2">Tools & DevOps</div>
-                                    <div class="space-y-2">
-                                        <div>
-                                            <span class="highlight-orange">Git / GitHub</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
-                                        </div>
-                                        <div>
-                                            <span class="highlight-orange">Docker</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
-                                        </div>
-                                        <div>
-                                            <span class="highlight-orange">Supabase</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <div class="highlight-green font-semibold mb-2">Design & Multimedia</div>
-                                    <div class="space-y-2">
-                                        <div>
-                                            <span class="highlight-red">Figma</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                                        </div>
-                                        <div>
-                                            <span class="highlight-red">Adobe Creative Suite</span>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Projects Section -->
-                <div class="mb-8">
-                    <div class="command-line mb-2">$ git log --oneline projects/</div>
-                    <div class="output-text">
-                        <div class="section-header">💼 WORK / PROJECTS EXPERIENCE</div>
-                        
-                        <div class="space-y-4">
-                            <div class="p-4 bg-gray-900 rounded border-l-4 border-blue-500 hover:bg-gray-800 transition-colors">
-                                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                    <div class="highlight-green font-semibold">Library Manager</div>
-                                    <div class="flex space-x-2 text-sm">
-                                        <span class="bg-blue-600 px-2 py-1 rounded text-xs">Java</span>
-                                        <span class="bg-purple-600 px-2 py-1 rounded text-xs">SQL</span>
-                                        <span class="bg-gray-600 px-2 py-1 rounded text-xs">Docker</span>
-                                    </div>
-                                </div>
-                                <p class="text-sm mb-3">CRUD completo, Swagger/OpenAPI, JUnit tests, deploy local con Docker.</p>
-                                <div class="flex space-x-4 text-xs">
-                                    <a href="#" onclick="openRepo('library-manager')" class="highlight-blue hover:underline">📂 Repository</a>
-                                    <a href="#" onclick="openDemo('library-manager')" class="highlight-orange hover:underline">🚀 Demo</a>
-                                </div>
-                            </div>
-
-                            <div class="p-4 bg-gray-900 rounded border-l-4 border-green-500 hover:bg-gray-800 transition-colors">
-                                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                    <div class="highlight-green font-semibold">Convertidor de Divisas</div>
-                                    <div class="flex space-x-2 text-sm">
-                                        <span class="bg-green-600 px-2 py-1 rounded text-xs">Express</span>
-                                        <span class="bg-blue-600 px-2 py-1 rounded text-xs">TypeScript</span>
-                                        <span class="bg-yellow-600 px-2 py-1 rounded text-xs">CI/CD</span>
-                                    </div>
-                                </div>
-                                <p class="text-sm mb-3">Microservicio REST con validación Zod, caching en memoria, Jest tests + CI/CD en GitHub Actions.</p>
-                                <div class="flex space-x-4 text-xs">
-                                    <a href="#" onclick="openRepo('currency-converter')" class="highlight-blue hover:underline">📂 Repository</a>
-                                    <a href="#" onclick="openDemo('currency-converter')" class="highlight-orange hover:underline">🚀 Demo</a>
-                                </div>
-                            </div>
-
-                            <div class="p-4 bg-gray-900 rounded border-l-4 border-yellow-500 hover:bg-gray-800 transition-colors">
-                                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                    <div class="highlight-green font-semibold">Amazon Tracker</div>
-                                    <div class="flex space-x-2 text-sm">
-                                        <span class="bg-yellow-600 px-2 py-1 rounded text-xs">Python</span>
-                                        <span class="bg-red-600 px-2 py-1 rounded text-xs">Scraping</span>
-                                        <span class="bg-green-600 px-2 py-1 rounded text-xs">API</span>
-                                    </div>
-                                </div>
-                                <p class="text-sm mb-3">Integración con scraping/API, endpoints de consulta, pytest.</p>
-                                <div class="flex space-x-4 text-xs">
-                                    <a href="#" onclick="openRepo('amazon-tracker')" class="highlight-blue hover:underline">📂 Repository</a>
-                                    <a href="#" onclick="openDemo('amazon-tracker')" class="highlight-orange hover:underline">🚀 Demo</a>
-                                </div>
-                            </div>
-
-                            <div class="p-4 bg-gray-900 rounded border-l-4 border-purple-500 hover:bg-gray-800 transition-colors">
-                                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                    <div class="highlight-green font-semibold">Blockchain Simple</div>
-                                    <div class="flex space-x-2 text-sm">
-                                        <span class="bg-yellow-600 px-2 py-1 rounded text-xs">Python</span>
-                                        <span class="bg-purple-600 px-2 py-1 rounded text-xs">Blockchain</span>
-                                        <span class="bg-red-600 px-2 py-1 rounded text-xs">Security</span>
-                                    </div>
-                                </div>
-                                <p class="text-sm mb-3">Prototipo educativo con arquitectura de cadena, seguridad básica.</p>
-                                <div class="flex space-x-4 text-xs">
-                                    <a href="#" onclick="openRepo('simple-blockchain')" class="highlight-blue hover:underline">📂 Repository</a>
-                                    <a href="#" onclick="openDemo('simple-blockchain')" class="highlight-orange hover:underline">🚀 Demo</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Extras / Interests Section -->
-                <div class="mb-8">
-                    <div class="command-line mb-2">$ cat interests.txt</div>
-                    <div class="output-text">
-                        <div class="section-header">✨ EXTRAS / INTERESTS</div>
-                        
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="space-y-4">
-                                <div class="p-4 bg-gray-900 rounded">
-                                    <div class="highlight-purple font-semibold mb-2">🦀 Exploración Técnica</div>
-                                    <div class="text-sm space-y-1">
-                                        <div>• <span class="highlight-orange">Rust</span> - Algoritmos básicos y performance</div>
-                                        <div>• <span class="highlight-blue">C++</span> - Estructuras de datos fundamentales</div>
-                                        <div>• <span class="highlight-green">Algoritmos</span> - Optimización y complejidad</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="p-4 bg-gray-900 rounded">
-                                    <div class="highlight-green font-semibold mb-2">🏛️ Innovación Pública</div>
-                                    <div class="text-sm">
-                                        Interés en <span class="highlight-blue">innovación tecnológica en sector público</span>, 
-                                        gobierno digital y herramientas de inclusión social.
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="space-y-4">
-                                <div class="p-4 bg-gray-900 rounded">
-                                    <div class="highlight-red font-semibold mb-2">🎨 Proyectos Creativos</div>
-                                    <div class="text-sm space-y-2">
-                                        <div class="flex items-center justify-between">
-                                            <span>• <span class="highlight-purple">Patsygram</span></span>
-                                            <a href="#" onclick="openCreativeProject('patsygram')" class="highlight-blue hover:underline text-xs">Ver →</a>
-                                        </div>
-                                        <div class="flex items-center justify-between">
-                                            <span>• <span class="highlight-orange">Fanzine LGBT</span></span>
-                                            <a href="#" onclick="openCreativeProject('fanzine')" class="highlight-blue hover:underline text-xs">Ver →</a>
-                                        </div>
-                                        <div class="flex items-center justify-between">
-                                            <span>• <span class="highlight-green">Blog Meditación</span></span>
-                                            <a href="#" onclick="openCreativeProject('meditation')" class="highlight-blue hover:underline text-xs">Ver →</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="p-4 bg-gray-900 rounded">
-                                    <div class="highlight-blue font-semibold mb-2">🌟 Filosofía de Trabajo</div>
-                                    <div class="text-sm">
-                                        Enfoque en <span class="highlight-green">accesibilidad</span>, 
-                                        <span class="highlight-purple">diversidad</span> y 
-                                        <span class="highlight-orange">buenas prácticas</span> de desarrollo.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Interactive Commands -->
-                <div class="mb-6">
-                    <div class="command-line mb-2">$ help</div>
-                    <div class="output-text text-sm">
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <button onclick="showContact()" class="p-3 bg-gray-900 rounded hover:bg-gray-800 transition-colors text-left">
-                                <div class="highlight-blue">contact</div>
-                                <div class="text-xs text-gray-400">Mostrar información de contacto</div>
-                            </button>
-                            <button onclick="showProjects()" class="p-3 bg-gray-900 rounded hover:bg-gray-800 transition-colors text-left">
-                                <div class="highlight-green">projects</div>
-                                <div class="text-xs text-gray-400">Ver proyectos destacados</div>
-                            </button>
-                            <button onclick="downloadCV()" class="p-3 bg-gray-900 rounded hover:bg-gray-800 transition-colors text-left">
-                                <div class="highlight-purple">download</div>
-                                <div class="text-xs text-gray-400">Descargar CV en PDF</div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Terminal Prompt -->
-                <div class="flex items-center">
-                    <span class="command-line mr-2">$</span>
-                    <span class="typing-animation">_</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="text-center mt-8 text-gray-500 text-sm">
-            <p>© 2024 - Desarrollado con ❤️ y mucho ☕</p>
-        </div>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="gallery-container"><!-- Header -->
+   <header class="header">
+    <h1 class="main-title">RE:BAROQUE</h1>
+    <p class="subtitle">CANON · ALGORITMO · POSTHUMANISMO</p>
+    <div style="margin-top: 15px;"><span class="tag">GLITCH</span> <span class="tag">DIGITAL</span> <span class="tag">MEMORIA</span> <span class="tag">PODER</span>
     </div>
-
-    <script>
-        // Terminal typing effect
-        function typeText(element, text, speed = 50) {
-            element.innerHTML = '';
-            let i = 0;
-            const timer = setInterval(() => {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(timer);
-                }
-            }, speed);
-        }
-
-        // Interactive commands
-        function showContact() {
-            alert('📧 Email: zukuntwellefanzine@gmail.com\n📞 Teléfono: +52 5610677516\n🔗 GitHub: github.com/zukunftwellefanzine');
-        }
-
-        function showProjects() {
-            alert('🚀 Proyectos destacados:\n\n• Library Manager (Java + SQL + Docker)\n• Convertidor de Divisas (Express + TypeScript)\n• Amazon Tracker (Python + Scraping)\n• Blockchain Simple (Python + Security)');
-        }
-
-        // Project repository and demo functions
-        function openRepo(project) {
-            const repos = {
-                'library-manager': 'https://github.com/zukunftwellefanzine/library-manager',
-                'currency-converter': 'https://github.com/zukunftwellefanzine/currency-converter',
-                'amazon-tracker': 'https://github.com/zukunftwellefanzine/amazon-tracker',
-                'simple-blockchain': 'https://github.com/zukunftwellefanzine/simple-blockchain'
-            };
-            
-            if (repos[project]) {
-                alert(`🔗 Abriendo repositorio: ${repos[project]}\n\n(En un entorno real, esto abriría el enlace)`);
-            } else {
-                alert('📂 Repositorio disponible próximamente');
-            }
-        }
-
-        function openDemo(project) {
-            const demos = {
-                'library-manager': 'Demo disponible en localhost:8080',
-                'currency-converter': 'API REST disponible en Heroku',
-                'amazon-tracker': 'Demo con datos de prueba',
-                'simple-blockchain': 'Blockchain educativo interactivo'
-            };
-            
-            if (demos[project]) {
-                alert(`🚀 Demo: ${demos[project]}\n\n(En un entorno real, esto abriría la demo)`);
-            } else {
-                alert('🚀 Demo disponible próximamente');
-            }
-        }
-
-        function openCreativeProject(project) {
-            const projects = {
-                'patsygram': 'Proyecto de arte digital y fotografía experimental',
-                'fanzine': 'Publicación independiente sobre diversidad y cultura LGBT',
-                'meditation': 'Blog personal sobre mindfulness y bienestar digital'
-            };
-            
-            if (projects[project]) {
-                alert(`🎨 ${projects[project]}\n\n(En un entorno real, esto abriría el proyecto)`);
-            } else {
-                alert('🎨 Proyecto creativo disponible próximamente');
-            }
-        }
-
-        function downloadCV() {
-            alert('📄 Función de descarga disponible próximamente.\n\nPor ahora puedes contactarme directamente para solicitar mi CV completo.');
-        }
-
-        // Add some interactive terminal effects
-        document.addEventListener('DOMContentLoaded', function() {
-            // Simulate terminal loading
-            setTimeout(() => {
-                const cursor = document.querySelector('.typing-animation');
-                if (cursor) {
-                    cursor.style.animation = 'blink 1s infinite';
-                }
-            }, 1000);
-
-            // Add click effects to terminal window
-            document.querySelector('.terminal-window').addEventListener('click', function() {
-                const cursor = document.querySelector('.typing-animation');
-                if (cursor) {
-                    cursor.style.borderColor = '#7ee787';
-                    setTimeout(() => {
-                        cursor.style.borderColor = '#58a6ff';
-                    }, 200);
-                }
-            });
-        });
-
-        // Photo upload functionality
-        document.getElementById('photoInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.getElementById('profileImage');
-                    const container = document.getElementById('photoContainer');
-                    
-                    img.src = e.target.result;
-                    img.classList.remove('hidden');
-                    container.classList.add('hidden');
-                    
-                    // Add a subtle animation
-                    img.style.opacity = '0';
-                    setTimeout(() => {
-                        img.style.transition = 'opacity 0.5s ease-in-out';
-                        img.style.opacity = '1';
-                    }, 100);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Click to change photo
-        document.getElementById('profileImage').addEventListener('click', function() {
-            document.getElementById('photoInput').click();
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.key === 'c') {
-                e.preventDefault();
-                showContact();
-            } else if (e.ctrlKey && e.key === 'p') {
-                e.preventDefault();
-                showProjects();
-            }
-        });
+   </header><!-- Texto Curatorial -->
+   <section class="section">
+    <h2 class="section-title">TEXTO CURATORIAL</h2>
+    <div class="curatorial-text"><strong>RE:BAROQUE</strong> es una serie de investigación-creación que reinterpreta el canon barroco y renacentista desde una sensibilidad contemporánea atravesada por tecnología, algoritmo y pensamiento posthumanista. El proyecto parte de imágenes fundacionales de la historia del arte occidental para activar una lectura crítica sobre cuerpo, poder, fe, creación y memoria en la era digital.
+    </div>
+    <div class="concept-box">
+     <p class="glitch-text">EL CUERPO CLÁSICO COMO INTERFAZ</p>
+     <p style="color: #ccc; font-size: 0.95rem; line-height: 1.6;">A través de cinco piezas, la serie propone al cuerpo clásico como interfaz, a lo sagrado como sistema y a la razón como estructura susceptible de fallar. El claroscuro barroco dialoga con el glitch, el error y la señal, generando imágenes donde la espiritualidad, la ética y la tecnología se entrelazan sin jerarquías claras.</p>
+    </div>
+    <div class="curatorial-text"><strong>RE:BAROQUE no busca actualizar el canon, sino tensionarlo:</strong> ponerlo en fricción con imaginarios algorítmicos, procesos de automatización y nuevas formas de subjetividad. En este universo visual, la victoria se vuelve reflexión, la compasión atraviesa lo posthumano y el error persiste como memoria activa. La serie se sitúa así como un espacio simbólico para pensar la condición humana cuando lo histórico, lo técnico y lo sensible convergen.
+    </div>
+    <div style="text-align: center; margin-top: 20px;"><span class="tag">INVESTIGACIÓN</span> <span class="tag">CREACIÓN</span> <span class="tag">FRICCIÓN</span>
+    </div>
+   </section>
+   <div class="divider"></div><!-- Pieza 1: Daemon Algorithm -->
+   <section class="section">
+    <h2 class="section-title">01 // DAEMON ALGORITHM</h2>
+    <div class="artwork-frame">
+     <div class="artwork-title">
+      DAEMON ALGORITHM
+     </div>
+     <div class="artwork-subtitle">
+      Marco conceptual de la serie
+     </div>
+     <div class="artwork-desc">
+      Relectura de <em>El sueño de la razón produce monstruos</em> donde la caída de la razón no produce bestias, sino sistemas autónomos.
+     </div>
+    </div>
+    <div class="concept-box">
+     <p class="glitch-text">EL ALGORITMO COMO DAEMON</p>
+     <p style="color: #ccc; font-size: 0.95rem; line-height: 1.6;">La imagen plantea el algoritmo como nuevo daemon: invisible, omnipresente y fuera de control humano. Los monstruos de Goya se transforman en líneas de código que nadie puede detener.</p>
+    </div>
+    <div style="margin-top: 15px;"><span class="tag">GOYA</span> <span class="tag">RAZÓN</span> <span class="tag">SISTEMA</span> <span class="tag">AUTONOMÍA</span>
+    </div><button class="punk-button" onclick="alert('🤖 DAEMON INICIADO: La razón ha perdido el control de sus propias creaciones')">ACTIVAR DAEMON</button>
+   </section>
+   <div class="divider"></div><!-- Pieza 2: David 2.0 -->
+   <section class="section">
+    <h2 class="section-title">02 // DAVID 2.0</h2>
+    <div class="artwork-frame">
+     <div class="artwork-title">
+      DAVID 2.0 — LA CABEZA DE GOLIAT
+     </div>
+     <div class="artwork-subtitle">
+      Poder y reflexión moral
+     </div>
+     <div class="artwork-desc">
+      Inspirada en Caravaggio, esta pieza reimagina el triunfo no como exaltación de la fuerza, sino como un acto contemplativo.
+     </div>
+    </div>
+    <div class="concept-box">
+     <p class="glitch-text">VICTORIA = RESPONSABILIDAD</p>
+     <p style="color: #ccc; font-size: 0.95rem; line-height: 1.6;">El poder tecnológico no elimina la vulnerabilidad humana: la victoria deja restos, dudas y responsabilidad. La cabeza de Goliat es el reflejo oscuro del vencedor.</p>
+    </div>
+    <div style="margin-top: 15px;"><span class="tag">CARAVAGGIO</span> <span class="tag">PODER</span> <span class="tag">DUDA</span> <span class="tag">REFLEXIÓN</span>
+    </div><button class="punk-button" onclick="alert('⚔️ VICTORIA CONTEMPLATIVA: El poder tecnológico carga con el peso de sus conquistas')">CONTEMPLAR VICTORIA</button>
+   </section>
+   <div class="divider"></div><!-- Pieza 3: Piedad Posthuman -->
+   <section class="section">
+    <h2 class="section-title">03 // PIEDAD POSTHUMAN</h2>
+    <div class="artwork-frame">
+     <div class="artwork-title">
+      PIEDAD POSTHUMAN
+     </div>
+     <div class="artwork-subtitle">
+      Compasión más allá de lo biológico
+     </div>
+     <div class="artwork-desc">
+      Una reinterpretación de la piedad clásica donde lo humano sostiene a lo artificial.
+     </div>
+    </div>
+    <div class="concept-box">
+     <p class="glitch-text">EMPATÍA TRANSBIOLÓGICA</p>
+     <p style="color: #ccc; font-size: 0.95rem; line-height: 1.6;">La obra explora empatía, duelo y cuidado en un mundo donde la frontera entre organismo y máquina se vuelve porosa. ¿Puede haber compasión por lo no-vivo?</p>
+    </div>
+    <div style="margin-top: 15px;"><span class="tag">PIEDAD</span> <span class="tag">POSTHUMANO</span> <span class="tag">EMPATÍA</span> <span class="tag">DUELO</span>
+    </div><button class="punk-button" onclick="alert('💔 COMPASIÓN EXPANDIDA: Lo humano abraza a lo artificial en un gesto de piedad tecnológica')">SENTIR EMPATÍA</button>
+   </section>
+   <div class="divider"></div><!-- Pieza 4: Creación -->
+   <section class="section">
+    <h2 class="section-title">04 // CREACIÓN</h2>
+    <div class="artwork-frame">
+     <div class="artwork-title">
+      CREACIÓN — TRANSFERENCIA DE DATOS
+     </div>
+     <div class="artwork-subtitle">
+      Canon y tecnología
+     </div>
+     <div class="artwork-desc">
+      La chispa divina es reemplazada por un flujo de información.
+     </div>
+    </div>
+    <div class="concept-box">
+     <p class="glitch-text">EL GESTO FUNDACIONAL DIGITAL</p>
+     <p style="color: #ccc; font-size: 0.95rem; line-height: 1.6;">Esta pieza traduce el gesto fundacional del Renacimiento en un acto de transmisión de datos, cuestionando origen, autoría y creación en la era digital. ¿Quién crea cuando el creador es el código?</p>
+    </div>
+    <div style="margin-top: 15px;"><span class="tag">MIGUEL ÁNGEL</span> <span class="tag">DATOS</span> <span class="tag">ORIGEN</span> <span class="tag">AUTORÍA</span>
+    </div><button class="punk-button" onclick="alert('⚡ TRANSFERENCIA INICIADA: La chispa divina se convierte en flujo de datos binarios')">TRANSFERIR DATOS</button>
+   </section>
+   <div class="divider"></div><!-- Pieza 5: Reboot Purgatorio -->
+   <section class="section">
+    <h2 class="section-title">05 // REBOOT PURGATORIO</h2>
+    <div class="artwork-frame">
+     <div class="artwork-title">
+      REBOOT PURGATORIO
+     </div>
+     <div class="artwork-subtitle">
+      Memoria, error y reinicio
+     </div>
+     <div class="artwork-desc">
+      Inspirada en la imaginería barroca del purgatorio, la obra presenta el alma como sistema que se reinicia sin borrar del todo sus fallas.
+     </div>
+    </div>
+    <div class="concept-box">
+     <p class="glitch-text">EL ERROR COMO MEMORIA ACTIVA</p>
+     <p style="color: #ccc; font-size: 0.95rem; line-height: 1.6;">El error persiste como memoria y como aprendizaje. El purgatorio digital no purifica: acumula, procesa y reinicia cargando con el peso de todos los errores anteriores. La redención es imposible sin cicatrices.</p>
+    </div>
+    <div style="margin-top: 15px;"><span class="tag">PURGATORIO</span> <span class="tag">ERROR</span> <span class="tag">MEMORIA</span> <span class="tag">REINICIO</span>
+    </div><button class="punk-button" onclick="alert('🔄 SISTEMA REINICIANDO: Los errores persisten en la memoria del purgatorio digital')">EJECUTAR REBOOT</button>
+   </section>
+   <div class="divider"></div><!-- Cierre -->
+   <section class="section">
+    <h2 class="section-title">EPILOGO // CANON EN FRICCIÓN</h2>
+    <div class="curatorial-text">
+     RE:BAROQUE no concluye. Persiste como un sistema que se reinicia constantemente, cargando el peso del canon histórico mientras genera nuevas formas de ver, sentir y pensar. El claroscuro barroco se encuentra con el glitch digital. El cuerpo clásico deviene interfaz. La memoria artística se vuelve código susceptible de error.
+    </div>
+    <div class="concept-box">
+     <p class="glitch-text">LA CONDICIÓN POSTHUMANA DEL ARTE</p>
+     <p style="color: #ccc; font-size: 0.95rem; line-height: 1.6;">En este cruce entre lo histórico y lo tecnológico, RE:BAROQUE propone que el arte no replica el pasado ni predice el futuro: <strong>hace visible la tensión del presente</strong>. Un presente donde algoritmos sueñan, máquinas reciben compasión y el error se vuelve forma de memoria.</p>
+    </div>
+    <div style="text-align: center; margin: 25px 0;"><span class="tag">TENSIÓN</span> <span class="tag">PRESENTE</span> <span class="tag">POSTHUMANO</span> <span class="tag">MEMORIA</span>
+    </div>
+    <div style="text-align: center; margin-top: 30px;"><button class="punk-button" onclick="alert('🎨 FIN DE LA TRANSMISIÓN\n\nRE:BAROQUE permanece en loop infinito\nEl canon nunca termina de reiniciarse')">FIN DE TRANSMISIÓN</button>
+    </div>
+   </section>
+  </div>
+  <script>
+        // Funcionalidad básica para los botones interactivos
+        console.log('RE:BAROQUE Gallery loaded');
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97d272ce81bc64b0',t:'MTc1NzU0NDI1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ba0641237c4eef2',t:'MTc2Nzc1Njc3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
